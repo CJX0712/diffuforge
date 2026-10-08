@@ -1,0 +1,93 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "diffuforge"
+version = "0.1.0"
+description = "NFE-budgeted diffusion / score-based generative modeling with the DiffuFuse sampler"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "晨星 (CJX0712)" }]
+keywords = ["diffusion", "score-based", "ode-sampler", "dpm-solver", "edm", "optimal-transport"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+    "numpy>=1.26",
+]
+
+[project.optional-dependencies]
+full = [
+    "scipy>=1.11",
+    "scikit-learn>=1.3",
+    "optuna>=3.4",
+]
+dev = [
+    "pytest>=7.4",
+    "pytest-cov>=4.1",
+    "ruff==0.16.10",
+]
+
+[project.scripts]
+diffuforge = "diffuforge.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["diffuforge*"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+addopts = "-q"
+filterwarnings = [
+    "ignore::RuntimeWarning",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+src = ["diffuforge", "tests", "examples"]
+
+[tool.ruff.lint]
+select = [
+    "E", "W",      # pycodestyle
+    "F",           # pyflakes
+    "I",           # isort
+    "B",           # flake8-bugbear
+    "UP",          # pyupgrade
+    "SIM",         # flake8-simplify
+    "N",           # pep8-naming
+    "C4",          # comprehensions
+    "RUF",         # ruff specifics
+]
+ignore = [
+    "B008",   # function call in default arg (dataclass field defaults)
+    "RUF012", # mutable class attr needs ClassVar (frozen dataclass defaults)
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["N802", "N806"]
+# Diagnostic / experimental investigation scripts (not part of the shipped
+# package). They capture closure-over-loop-variable patterns that are harmless
+# here but flagged by B023; kept for reproducibility of the benchmark findings.
+"scripts/*" = ["E402", "N806", "B008", "B023", "B905", "RUF059", "E501", "RUF015"]
+
+[tool.coverage.run]
+source = ["diffuforge"]
+omit = ["*/__main__.py"]
+
+[tool.coverage.report]
+show_missing = true
+exclude_lines = [
+    "pragma: no cover",
+    "if TYPE_CHECKING:",
+    "raise NotImplementedError",
+]

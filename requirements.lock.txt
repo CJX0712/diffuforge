@@ -1,0 +1,20 @@
+# Pinned lockfile — the exact versions every number in benchmark.json was
+# produced with (python 3.13, win_amd64).  Reproduce with:
+#     python -m venv .venv && .venv/Scripts/pip install -r requirements.lock.txt
+alembic==1.20.0
+colorlog==6.12.0
+coverage==7.16.2
+iniconfig==2.3.1
+joblib==1.6.0
+numpy==2.5.3
+optuna==5.0.0
+packaging==26.3
+pluggy==1.6.0
+pytest==8.4.2
+pytest-cov==6.1.1
+ruff==0.16.10
+scikit-learn==1.9.1
+scipy==1.18.1
+SQLAlchemy==2.1.4
+threadpoolctl==3.7.0
+tqdm==4.70.1

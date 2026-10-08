@@ -1,0 +1,12 @@
+# DiffuForge runtime + benchmark dependencies.
+# Tier-0 is the full stack; every Tier-0 import has a Tier-1 pure-NumPy fallback
+# so the package still imports and runs with nothing but numpy installed.
+numpy>=1.26
+scipy>=1.11
+scikit-learn>=1.5.0
+optuna>=3.4
+
+# --- dev / CI -------------------------------------------------------------
+pytest>=7.4
+pytest-cov>=4.1
+ruff==0.16.10
