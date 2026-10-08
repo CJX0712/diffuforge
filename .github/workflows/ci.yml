@@ -41,4 +41,4 @@ jobs:
         run: python examples/run_demo.py
       - name: secret self-check
         run: |
-          ! git grep -nE "(sk-[A-Za-z0-9]{20}|api[_-]?key|token|secret|password)" -- '*.py' '*.md' '*.toml' '*.yml'
+          ! git grep -nE "(sk-[A-Za-z0-9]{20}|api[_-]?key|token|secret|password)" -- '*.py' '*.md' '*.toml' '*.yml' ':!.github/workflows/ci.yml'
