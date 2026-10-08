@@ -88,8 +88,6 @@ def _create_and_push_l1(owner: str, repo: str, desc: str, cwd: Path, branch: str
             "--remote",
             "origin",
             "--push",
-            "--branch",
-            branch,
         ],
         cwd=cwd,
     )
